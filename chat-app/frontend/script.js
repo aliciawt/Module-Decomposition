@@ -43,7 +43,7 @@ const fakeMessages = [
 // displayFakeMessage(fakeMessages);
 
 async function loadMessagesFromBackend() {
-    const response = await fetch('http://localhost:3000/messages');
+    const response = await fetch('http://o979s8v7igzc23ggpyfppvi9.178.105.39.91.sslip.io/');
     const messages = await response.json();
 
     chatsContainer.innerHTML = "";
