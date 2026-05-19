@@ -9,42 +9,44 @@ const fakeMessages = [
     {message: "Has anyone tried the new bubble tea place?", username: "LycheeKing", timestamp: "7:45 PM"}
 ]
 
-function displayFakeMessage(fakeMessages) {
-    for (const message of fakeMessages) {
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("message");
+// function displayFakeMessage(fakeMessages) {
+//     for (const message of fakeMessages) {
+//         const messageDiv = document.createElement("div");
+//         messageDiv.classList.add("message");
 
-        if (message.username === "You") {
-            messageDiv.classList.add("message-user");
-        } else {
-            messageDiv.classList.add("message-other");
-        }
+//         if (message.username === "You") {
+//             messageDiv.classList.add("message-user");
+//         } else {
+//             messageDiv.classList.add("message-other");
+//         }
 
-        const usernameDiv = document.createElement("div");
-        usernameDiv.classList.add("message-username");
-        usernameDiv.textContent = message.username;
+//         const usernameDiv = document.createElement("div");
+//         usernameDiv.classList.add("message-username");
+//         usernameDiv.textContent = message.username;
 
-        const textDiv = document.createElement("div");
-        textDiv.classList.add("message-text");
-        textDiv.textContent = message.message;
+//         const textDiv = document.createElement("div");
+//         textDiv.classList.add("message-text");
+//         textDiv.textContent = message.message;
 
-        const timeDiv = document.createElement("div");
-        timeDiv.classList.add("message-timestamp");
-        timeDiv.textContent = message.timestamp;
+//         const timeDiv = document.createElement("div");
+//         timeDiv.classList.add("message-timestamp");
+//         timeDiv.textContent = message.timestamp;
 
-        messageDiv.appendChild(usernameDiv);
-        messageDiv.appendChild(textDiv);
-        messageDiv.appendChild(timeDiv);
+//         messageDiv.appendChild(usernameDiv);
+//         messageDiv.appendChild(textDiv);
+//         messageDiv.appendChild(timeDiv);
 
-        chatsContainer.appendChild(messageDiv);
-    }
-}
+//         chatsContainer.appendChild(messageDiv);
+//     }
+// }
 
 // displayFakeMessage(fakeMessages);
 
 async function loadMessagesFromBackend() {
     const response = await fetch('http://localhost:3000/messages');
     const messages = await response.json();
+
+    chatsContainer.innerHTML = "";
     
     for (const message of messages) {
         addNewMessageToChat(message);
