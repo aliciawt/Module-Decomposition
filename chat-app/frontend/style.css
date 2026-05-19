@@ -102,6 +102,10 @@ h1 {
     word-wrap: break-word;
 }
 
+.message-text {
+    white-space: pre-wrap;
+}
+
 .message-user {
     align-self: flex-end;
     background: var(--accent-pink);
