@@ -40,7 +40,18 @@ function displayFakeMessage(fakeMessages) {
     }
 }
 
-displayFakeMessage(fakeMessages);
+// displayFakeMessage(fakeMessages);
+
+async function loadMessagesFromBackend() {
+    const response = await fetch('http://localhost:3000/messages');
+    const messages = await response.json();
+    
+    for (const message of messages) {
+        addNewMessageToChat(message);
+    }
+}
+
+loadMessagesFromBackend();
 
 function addNewMessageToChat(message) {
     const messageDiv = document.createElement("div");
@@ -85,8 +96,17 @@ function sendMessage() {
         timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
     };
 
-    addNewMessageToChat(newMessage);
-    typingBox.value = "";
+    fetch('http://localhost:3000/messages', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newMessage)
+    })
+    .then(response => response.json())
+    .then(savedMessage => {
+        addNewMessageToChat(savedMessage);  // Pakai pesan yang sudah disimpan backend
+        typingBox.value = "";
+        typingBox.focus();
+    });
 }
 
 sendButton.addEventListener("click", sendMessage);
