@@ -134,6 +134,7 @@ function addNewMessageToChat(message) {
     messageDiv.appendChild(timeDiv);
 
     chatsContainer.appendChild(messageDiv);
+    chatsContainer.scrollTop = chatsContainer.scrollHeight;
 }
 
 function sendMessage() {
@@ -156,7 +157,6 @@ function sendMessage() {
     })
     .then(response => response.json())
     .then(savedMessage => {
-        addNewMessageToChat(savedMessage);
         typingBox.value = "";
         typingBox.focus();
     });
