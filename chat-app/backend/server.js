@@ -1,5 +1,5 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
 
 const app = express();
 const PORT = 3000;
@@ -22,7 +22,7 @@ app.post('/messages', (req, res) => {
     const { message, username, timestamp } = req.body;
     
     const newMessage = {
-        id: Date.now(),  // ID unik berdasarkan waktu
+        id: Date.now(),
         message: message,
         username: username,
         timestamp: timestamp
