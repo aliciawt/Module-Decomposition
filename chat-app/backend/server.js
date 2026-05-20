@@ -5,11 +5,7 @@ const app = express();
 const PORT = 3000;
 
 // Middleware
-app.use(cors({
-    origin: 'http://xd69sn3wykcfxt3c98sdbokg.178.105.39.91.sslip.io',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
-}));
+app.use(cors());
 app.use(express.json());
 
 let messages = [];
