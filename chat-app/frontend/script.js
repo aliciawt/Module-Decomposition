@@ -43,7 +43,7 @@ const fakeMessages = [
 // displayFakeMessage(fakeMessages);
 
 async function loadMessagesFromBackend() {
-    const response = await fetch('http://o979s8v7igzc23ggpyfppvi9.178.105.39.91.sslip.io/');
+    const response = await fetch('http://o979s8v7igzc23ggpyfppvi9.178.105.39.91.sslip.io/messages');
     const messages = await response.json();
 
     chatsContainer.innerHTML = "";
@@ -98,14 +98,14 @@ function sendMessage() {
         timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
     };
 
-    fetch('http://localhost:3000/messages', {
+    fetch('http://o979s8v7igzc23ggpyfppvi9.178.105.39.91.sslip.io/messages', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newMessage)
     })
     .then(response => response.json())
     .then(savedMessage => {
-        addNewMessageToChat(savedMessage);  // Pakai pesan yang sudah disimpan backend
+        addNewMessageToChat(savedMessage);
         typingBox.value = "";
         typingBox.focus();
     });
