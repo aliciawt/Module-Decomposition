@@ -77,7 +77,29 @@ async function loadMessagesFromBackend() {
     }
 }
 
-loadMessagesFromBackend();
+let isPollingActive = true;
+
+async function waitForNewMessages() {
+    if (!isPollingActive) return;
+
+    try {
+        const response = await fetch("http://o979s8v7igzc23ggpyfppvi9.178.105.39.91.sslip.io/messages/live");
+        const newMessages = await response.json();
+
+        for (const message of newMessages) {
+            addNewMessageToChat(message);
+        }
+
+        waitForNewMessages();
+    } catch (error) {
+        console.error('Long polling error', error);
+        setTimeout(waitForNewMessages, 1000);
+    }
+}
+
+loadMessagesFromBackend().then(() => {
+    waitForNewMessages();
+});
 
 function addNewMessageToChat(message) {
     const messageDiv = document.createElement("div");
