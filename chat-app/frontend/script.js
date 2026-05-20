@@ -3,11 +3,35 @@ const typingArea = document.getElementById("typing-area");
 const typingBox = document.getElementById("typing-box");
 const sendButton = document.getElementById("send-button");
 
-const fakeMessages = [
-    {message: "Omg this chat is so cute!! 🍡", username: "PixelPrincess", timestamp: "7:42 PM"},
-    {message: "Right?? I love the pink vibes 💕", username: "You", timestamp: "7:43 PM"},
-    {message: "Has anyone tried the new bubble tea place?", username: "LycheeKing", timestamp: "7:45 PM"}
-]
+let currentUsername = localStorage.getItem('chatUsername');
+
+function generateRandomUsername() {
+    const adjectives = ['Pink', 'Lychee', 'Pixel', 'Cute', 'Bubble', 'Sweet', 'Cotton', 'Sparkle'];
+    const nouns = ['Princess', 'Queen', 'Panda', 'Mochi', 'Candy', 'Puff', 'Cookie', 'Bunny'];
+    
+    const randomAdj = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    const randomNum = Math.floor(Math.random() * 100);
+    
+    return `${randomAdj}${randomNoun}${randomNum}`;
+}
+
+if (!currentUsername) {
+    currentUsername = generateRandomUsername();
+    localStorage.setItem('chatUsername', currentUsername);
+}
+
+
+const userNameDisplay = document.getElementById('user-name-display');
+if (userNameDisplay) {
+    userNameDisplay.textContent = currentUsername;
+}
+
+// const fakeMessages = [
+//     {message: "Omg this chat is so cute!! 🍡", username: "PixelPrincess", timestamp: "7:42 PM"},
+//     {message: "Right?? I love the pink vibes 💕", username: "You", timestamp: "7:43 PM"},
+//     {message: "Has anyone tried the new bubble tea place?", username: "LycheeKing", timestamp: "7:45 PM"}
+// ]
 
 // function displayFakeMessage(fakeMessages) {
 //     for (const message of fakeMessages) {
@@ -59,7 +83,7 @@ function addNewMessageToChat(message) {
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message");
 
-    if (message.username === "You") {
+    if (message.username === currentUsername) {
         messageDiv.classList.add("message-user");
     } else {
         messageDiv.classList.add("message-other");
@@ -67,7 +91,12 @@ function addNewMessageToChat(message) {
 
     const usernameDiv = document.createElement("div");
     usernameDiv.classList.add("message-username");
-    usernameDiv.textContent = message.username;
+
+    let displayUsername = message.username;
+    if (message.username === currentUsername) {
+        displayUsername = `${message.username} (You)`;
+    }
+    usernameDiv.textContent = displayUsername;
 
     const textDiv = document.createElement("div");
     textDiv.classList.add("message-text");
@@ -94,7 +123,7 @@ function sendMessage() {
 
     const newMessage = {
         message: message,
-        username: "You",
+        username: currentUsername,
         timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
     };
 
