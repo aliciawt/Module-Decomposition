@@ -67,7 +67,7 @@ if (userNameDisplay) {
 // displayFakeMessage(fakeMessages);
 
 async function loadMessagesFromBackend() {
-    const response = await fetch('http://o979s8v7igzc23ggpyfppvi9.178.105.39.91.sslip.io/messages');
+    const response = await fetch('http://f7ak9f2ws1zbe8x4snlifrbz.178.105.39.91.sslip.io/messages');
     const messages = await response.json();
 
     chatsContainer.innerHTML = "";
@@ -83,7 +83,7 @@ async function waitForNewMessages() {
     if (!isPollingActive) return;
 
     try {
-        const response = await fetch("http://o979s8v7igzc23ggpyfppvi9.178.105.39.91.sslip.io/messages/live");
+        const response = await fetch("http://f7ak9f2ws1zbe8x4snlifrbz.178.105.39.91.sslip.io/messages/live");
         const newMessages = await response.json();
 
         for (const message of newMessages) {
@@ -149,7 +149,7 @@ function sendMessage() {
         timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
     };
 
-    fetch('http://o979s8v7igzc23ggpyfppvi9.178.105.39.91.sslip.io/messages', {
+    fetch('http://f7ak9f2ws1zbe8x4snlifrbz.178.105.39.91.sslip.io/messages', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newMessage)
