@@ -144,10 +144,14 @@ function sendMessage() {
         return;
     }
 
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+
     const newMessage = {
         message: message,
         username: currentUsername,
-        timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+        timestamp: `${hours}:${minutes}`
     };
 
     fetch('http://f7ak9f2ws1zbe8x4snlifrbz.178.105.39.91.sslip.io/messages', {
